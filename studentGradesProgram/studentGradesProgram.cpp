@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <iomanip>
 
 using namespace std;
 
@@ -11,6 +12,7 @@ const int MAX_STUDENTS = 100;
 int readStudentData(string names[], int scores[][NUM_TESTS]);
 void calculateAverages(int count, int scores[][NUM_TESTS], double averages[]);
 char getLetterGrade(double average);
+void printReport(int count, string names[], double averages[]);
 
 int main()
 {
@@ -26,12 +28,8 @@ int main()
     // Calls the function that calculates each student's average score
     calculateAverages(studentCount, scores, averages);
 
-    // Outputs each student's name, average score, and letter grade
-    for (int i = 0; i < studentCount; i++)
-    {
-        cout << names[i] << " average: " << averages[i]
-            << " grade: " << getLetterGrade(averages[i]) << endl;
-    }
+    // Calls the function that prints the formatted grade report
+    printReport(studentCount, names, averages);
 
     // Return to ensure program ends properly
     return 0;
@@ -109,5 +107,25 @@ char getLetterGrade(double average)
     else
     {
         return 'F';
+    }
+}
+
+// Function to output the final formatted grade report
+void printReport(int count, string names[], double averages[])
+{
+    // Outputs the column headings
+    cout << left << setw(15) << "Student"
+        << setw(15) << "Average"
+        << setw(10) << "Grade" << endl;
+
+    // Outputs a divider line under the headings
+    cout << "-------------------------------------" << endl;
+
+    // Loops through each student and outputs their formatted information
+    for (int i = 0; i < count; i++)
+    {
+        cout << left << setw(15) << names[i]
+            << setw(15) << fixed << setprecision(2) << averages[i]
+            << setw(10) << getLetterGrade(averages[i]) << endl;
     }
 }
