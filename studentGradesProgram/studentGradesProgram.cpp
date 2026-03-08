@@ -10,6 +10,7 @@ const int MAX_STUDENTS = 100;
 
 int readStudentData(string names[], int scores[][NUM_TESTS]);
 void calculateAverages(int count, int scores[][NUM_TESTS], double averages[]);
+char getLetterGrade(double average);
 
 int main()
 {
@@ -25,10 +26,11 @@ int main()
     // Calls the function that calculates each student's average score
     calculateAverages(studentCount, scores, averages);
 
-    // Outputs each student's name and average score
+    // Outputs each student's name, average score, and letter grade
     for (int i = 0; i < studentCount; i++)
     {
-        cout << names[i] << " average: " << averages[i] << endl;
+        cout << names[i] << " average: " << averages[i]
+            << " grade: " << getLetterGrade(averages[i]) << endl;
     }
 
     // Return to ensure program ends properly
@@ -81,5 +83,31 @@ void calculateAverages(int count, int scores[][NUM_TESTS], double averages[])
 
         // Divides the total by the number of tests to get the average
         averages[i] = (double)sum / NUM_TESTS;
+    }
+}
+
+// Function to assign a letter grade based on the average score
+char getLetterGrade(double average)
+{
+    // Uses a standard grading scale
+    if (average >= 90)
+    {
+        return 'A';
+    }
+    else if (average >= 80)
+    {
+        return 'B';
+    }
+    else if (average >= 70)
+    {
+        return 'C';
+    }
+    else if (average >= 60)
+    {
+        return 'D';
+    }
+    else
+    {
+        return 'F';
     }
 }
